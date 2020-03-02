@@ -1,0 +1,110 @@
+body{
+	margin: 0;
+}
+
+.slides-container{
+	max-width: 1000px;
+	position: relative;
+	margin: 0 auto;
+}
+
+.slides-show{
+	display:none;
+}
+
+.slides-show:first-child{
+	display: block;
+}
+.slides-number{
+	position: absolute;
+	top: 0px;
+	color: aliceblue;
+	padding: 5px 10px;
+}
+
+.slides-text{
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	bottom: 20px;
+	color: aliceblue;
+}
+
+#pageChange{
+	text-align: center;
+}
+
+.pageDot{
+	display: inline-block;
+	cursor: pointer;
+	margin: 5px 5px;
+	width: 16px;
+	height: 16px;
+	border-radius: 8px;
+	background-color: black;
+	transition: background-color 0.6s ease;	
+}
+
+.active, .pageDot:hover{
+	background-color: #A9A9A9;
+}
+
+.prev,.next{
+	cursor: pointer;
+	position: absolute;
+	display: block;
+	background-color: rgba(250,250,250,0.2);
+	top: 50%;
+	width: 30px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	text-decoration: none;
+	color: darkgray;
+	font-size: 20px;
+	font-weight: bold;
+	transition: background-color 0.5s ease;
+	/*cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;*/
+}
+
+.prev{
+	left: 0px;
+	border-radius: 0 5px 5px 0;
+}
+
+.next{
+	right: 0px;
+	border-radius: 5px 0 0 5px;
+}
+
+.prev:hover, .next:hover{
+	background-color: rgba(240,240,240,0.8);
+}
+
+/*淡出动画*/
+.fade{
+	-webkit-animation-name: fade;
+	-webkit-animation-duration: 1.5s;
+	animation-name: fade;
+	animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}

@@ -1,0 +1,34 @@
+
+div.content{
+	width: 200px;
+	margin: 0 auto;
+	text-align: center;
+	background-color: #A9A9A9;
+}
+div.content div {
+	overflow: hidden;
+}
+/* 收起二级标题,只显示一级标题的高度 */
+div.content div.collapse {
+	height: 21px;
+}
+/* 一级标题 */
+.menuSpan {
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	height: 20px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+div.content div a{
+	display: block;
+	width: 100%;
+	height: 20px;
+	background-color: #EEE;
+}
+
+.sub-tit-active{
+	background-color: #f3fefe;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>二级菜单</title>
+		<link rel="stylesheet" type="text/css" href="css/subtitle.css"/>
+		<script src="js/tools.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				//一级标题
+				var menuSpan = document.querySelectorAll(".menuSpan");
+				//定义公共参数保存当前的打开div
+				var openDiv = menuSpan[0].parentNode;
+				//对每个一级标题绑定监听事件
+				for(let i=0; i<menuSpan.length; i++){
+					menuSpan[i].onclick = function(){
+						//获取一级标题span的父元素div
+						var parentDiv = this.parentNode;
+						//对div进行展开
+						toggleMenu(parentDiv);
+						//若展开div不是当前点击的div 且 上一次展开div没有收起，则将其收起。
+						if(openDiv != parentDiv  && !hasClass(openDiv , "collapse")){
+							toggleMenu(openDiv);//也可以去掉这里，就不会在打开一个标题时自动关闭其他标题了。
+						}
+						//打开的 div 参数 为当前点击的 div
+						openDiv = parentDiv;
+					};
+				}
+			};
+			function toggleMenu(obj){
+				// 获取当前高度
+				var begin = obj.offsetHeight;
+				
+				//切换parentDiv的显示
+				toggleClass(obj , "collapse");
+				
+				//获取切换后的高度
+				var end = obj.offsetHeight;
+				
+				// 制作切换的动画
+				obj.style.height = begin + "px";
+				move(obj, "height", end, 10, function(){
+					//必须清理style参数，不然无法展开。!!!!!!!!!!!!!!!
+					obj.style = "";
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div class="content">
+			<div class="collapse">
+				<span class="menuSpan">一---</span>
+				<a href="#" class="sub-tit">1..</a>
+				<a href="#" class="sub-tit">2..</a>
+				<a href="#" class="sub-tit">3..</a>
+				<a href="#" class="sub-tit">4..</a>
+			</div>
+			<div class="collapse">
+				<span class="menuSpan">二---</span>
+				<a href="#" class="sub-tit">1..</a>
+				<a href="#" class="sub-tit">2..</a>
+			</div>
+			<div class="collapse">
+				<span class="menuSpan">三---</span>
+				<a href="#" class="sub-tit">1..</a>
+				<a href="#" class="sub-tit">2..</a>
+				<a href="#" class="sub-tit">3..</a>
+				<a href="#" class="sub-tit">4..</a>
+				<a href="#" class="sub-tit">5..</a>
+				<a href="#" class="sub-tit">6..</a>
+			</div>
+			<div class="collapse">
+				<span class="menuSpan">四---</span>
+				<a href="#" class="sub-tit">1..</a>
+				<a href="#" class="sub-tit">2..</a>
+				<a href="#" class="sub-tit">3..</a>
+			</div>
+			<div class="collapse">
+				<span class="menuSpan">五---</span>
+				<a href="#" class="sub-tit">1..</a>
+				<a href="#" class="sub-tit">2..</a>
+				<a href="#" class="sub-tit">3..</a>
+				<a href="#" class="sub-tit">4..</a>
+			</div>
+		</div>
+	</body>
+</html>

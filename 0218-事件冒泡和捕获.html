@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>事件冒泡与捕获</title>
+	</head>
+	<body>
+		<div id="box1">
+			<div id="box2">
+				<p id="txt">
+					<span id="demo">
+						冒泡事件测试	<!--点击span后弹框顺序为 1 2 3 4-->
+					</span>
+				</p>
+			</div>
+		</div>
+		<div id="box-1">
+			<div id="box-2">
+				<p id="txt2">
+					<span id="demo2">
+						捕获事件测试	<!--点击span后弹框顺序 4 3 2 1-->
+					</span>
+				</p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			document.getElementById('demo').addEventListener("click", myBubble);
+			document.getElementById('txt').addEventListener("click",myBubble2);
+			document.getElementById('box2').addEventListener("click",myBubble3);
+			document.getElementById('box1').addEventListener("click",myBubble4);
+			function myBubble(e){
+				alert(' 1');
+			}
+			function myBubble2(e){
+				alert(' 2');
+			}
+			function myBubble3(e){
+				alert('3 ');
+			}
+			//事件委托/代理，利用冒泡，将事件监听放在外层，内部事件会冒泡到外层，委托执行
+			function myBubble4(e){
+				var e = e || window.event;
+				var tar = e.target || e.srcElement;	//获取当前事件发生的元素。
+				alert('4 ' + tar); //最外层能监听到内层的点击事件，点击span冒泡到了box1，输出为： 4 [object HTMLSpanElement]
+			}
+			document.getElementById('demo2').addEventListener("click", myBubble, true);
+			document.getElementById('txt2').addEventListener("click",myBubble2, true);
+			document.getElementById('box-2').addEventListener("click",myBubble3, true);
+			document.getElementById('box-1').addEventListener("click",myBubble4, true);
+		</script>
+	</body>
+</html>

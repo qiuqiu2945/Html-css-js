@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function Animal(){
+				this.name = 'animal';
+			}
+			function Cat(){
+				this.name = 'Cat';
+			}
+			function ChinaCat(){
+				this.name='chinacat';
+			}
+			Cat.prototype = new Animal();
+			ChinaCat.prototype = new Cat();
+			//如果不写下面这句，Cat.prototype及其实例中的constructor都会指向function Animal(){}
+			//写了之后就修改为function Cat(){}
+			Cat.prototype.constructor = Cat;
+			ChinaCat.prototype.constructor = ChinaCat;
+			var a = new ChinaCat();
+			var b = new ChinaCat();
+			a.age = 1;
+			b.age = 2;
+			a.name = "mimi";
+			//var a = nre Cat();
+			console.log(a);//实例对象a
+			console.log(b);//实例对象a
+			console.log(a.constructor === a.__proto__.constructor);
+			console.log(a.__proto__ === ChinaCat.prototype);//true
+			console.log(a.__proto__.constructor === a.__proto__.__proto__.constructor);//不修改constructor时为true
+			console.log(a.__proto__.__proto__ === Cat.prototype);//true
+			console.log(a.__proto__.__proto__.__proto__ === Animal.prototype);//true
+			console.log(a.__proto__.__proto__.__proto__.__proto__);
+			console.log("a.constructor:　"+a.constructor);//实例a的构造函数指针
+		</script>
+	</body>
+</html>

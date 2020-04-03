@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表单验证</title>
+		<style type="text/css">
+			fieldset{
+				width: 300px;
+			}
+			form{
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="" method="post" name="fName" onsubmit="return getName()">
+			<fieldset id="">
+				<legend>非空验证</legend>
+				<input type="text" name="firstName"  value="" />
+				<input type="submit" value="submit"/>
+			</fieldset>
+		</form>
+		<form action="" method="post" name="testNum" onsubmit="return numberCheck()">
+			<fieldset id="">
+				<legend>数字验证</legend>
+				<input type="text" name="numCheck" value="" />
+				<input type="submit" value="submit"/>
+			</fieldset>
+		</form>
+		
+		<script type="text/javascript">
+			function getName(){
+				var x = document.forms["fName"]["firstName"].value;
+				if(x == "" || x == null){
+					alert("input name, please");
+					return false;
+				}
+			}
+			
+			function numberCheck(){
+				var n = document.forms["testNum"]["numCheck"].value;
+				if(n>100 || n<0 || isNaN(n) || n == ""){
+					alert("input error!");
+					return false;
+				}
+			}
+		</script>
+	</body>
+</html>

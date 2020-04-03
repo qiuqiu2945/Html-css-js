@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>对象创建与属性访问</title>
+	</head>
+	<body>
+		<p id="d1"></p>
+		<p id="d2"></p>
+		<p id="d3"></p>
+		<p id="d4"></p>
+		<script type="text/javascript">
+			/*创建对象obj*/
+			var obj = {
+				firstName: "William",
+				lastName: "Hammington",
+				age: 5,
+				eyeColor: "brown",
+				getFullName: function (){
+					return this.firstName + ' ' + this.lastName;
+				}
+			};
+			/*访问obj的属性的方法*/
+			//---1
+			document.getElementById("d1").innerHTML = obj.firstName;
+			//---2
+			document.getElementById("d2").innerHTML = obj["lastName"];
+			/*访问函数属性*/
+			//---1 作为方法访问
+			document.getElementById("d3").innerHTML = obj.getFullName();
+			//---2 作为属性访问
+			document.getElementById("d4").innerHTML = obj.getFullName;
+			
+		</script>
+	</body>
+</html>

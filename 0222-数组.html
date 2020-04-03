@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数组</title>
+	</head>
+	<body>
+		<script>
+			/*查找数组元素位置*/
+			indOf([1,2,3,4,5],4);
+			function indOf(arr, item) {
+				console.log(arr.indexOf(item));
+			}
+			/*删除指定元素，不修改原数组，并返回新数组*/
+			remove([1,2,3,4,5],2);
+			function remove(arr, item){
+				return arr.filter(function(i){ return i!=item});
+			}
+			/*删除指定元素，返回修改后的数组*/
+			removeWithoutCopy([1, 2, 2, 3, 4, 2, 2], 2);
+			function removeWithoutCopy(arr, item) {
+				while(arr.indexOf(item)!=-1){
+					arr.splice(arr.indexOf(item),1);
+				}
+				//console.log(arr);
+				return arr;
+			}
+			/*在最后添加新元素，要新建数组，不修改原数组*/
+			append([1, 2, 2, 3, 4, 2, 2], 2);
+			function append(arr, item){
+				//console.log(arr.concat(item));
+				return arr.concat(item);
+			}
+			/*删除最后一个元素，不修改原数组*/
+			truncate([1, 2, 2, 3, 4, 5, 3, 2]);
+			function truncate(arr){
+				return arr.slice(0, arr.length-1);
+			}
+			/*在数组开头添加新元素，不修改原数组*/
+			prepend([1, 2, 2, 3, 4, 2, 2], 2);
+			function prepend(arr, item){
+				//console.log([item].concat(arr));
+				return [item].concat(arr);
+			}
+			/*删除第一个元素，不修改原数组*/
+			curtail([1, 2, 2, 4, 5, 1, 6, 7])
+			function curtail(arr){
+				return arr.slice(1, arr.length);
+			}
+			/*合并两个数组*/
+			
+			function concat(arr1, arr2){
+				return arr1.concat(arr2);
+			}
+			/*在指定索引处插入元素，不修改原数组*/
+			insert([1, 2, 3, 4], 'z', 3);
+			function insert(arr, item, index) {
+				//var a1=[];
+				//if(index!=0) a1 = arr.slice(0, index);
+				//var a1 = index==0?[]:arr.slice(0, index);
+				//console.log((index==0?[]:arr.slice(0, index)).concat(item, arr.slice(index, arr.length)));
+				return (index==0?[]:arr.slice(0, index)).concat(item, arr.slice(index, arr.length));
+			}
+			/*统计数组 arr 中值等于 item 的元素出现的次数*/
+			count([1, 2, 4, 4, 3, 4, 3], 4);
+			function count(arr, item) {
+				var cnt = 0;
+				arr.forEach(function(i){	if(i==item) cnt++;});
+				return cnt;
+			}
+			/*找出数组 arr 中重复出现过的元素*/
+			duplicates([1, 2, 4, 4, 3, 3, 1, 5, 3]);
+			function duplicates(arr) {
+				var reg = new Array();
+				/*for(let i=0; i<arr.length; i++){
+					if(reg[arr[i]]==undefined)	reg[arr[i]]=0;
+					reg[arr[i]]++;
+				}
+				var res=[];
+				for(let i=0;i<reg.length;i++){
+					if(reg[i]>1)
+						res.push(i);
+				}
+				console.log(res);*/
+				arr.forEach(function(item){
+					if(arr.indexOf(item)!=arr.lastIndexOf(item) && reg.indexOf(item)==-1){
+						reg.push(item);
+					}
+				});
+				reg.sort();
+				console.log(reg);
+				return reg;
+			}
+			/*为数组 arr 中的每个元素求二次方。不要直接修改数组 arr，结果返回新的数组*/
+			function square(arr) {
+				return arr.map(function(item){
+					return item*item;
+				});
+			}
+			/*在数组 arr 中，查找值与 item 相等的元素出现的所有位置*/
+			function findAllOccurrences(arr, target) {
+				var reg = [];
+				arr.forEach(function(item, index){
+					if(item==target){
+						reg.push(index);
+					}
+				});
+				return reg;
+			}
+			
+			
+		</script>
+	</body>
+</html>

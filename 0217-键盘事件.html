@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>键盘事件</title>
+	</head>
+	<body>
+		<input type="text" name="down" id="kDown" value="" />
+		<script type="text/javascript">
+			//键盘事件顺序为 down -> press -> up
+			//keyCode, charCode, which 返回的是键字符代码或键值代码，key 属性返回的是对应的键字符(串)
+			//charCode 只用于 press 事件
+			
+			//down 和 up 返回的是键的代码
+			document.getElementById("kDown").onkeydown = function(e){
+				console.log('down ' + e.keyCode);
+				//特殊按键 : altKey, ctrlKey, metaKey, shiftKey
+				if(e.altKey==1){
+					console.log('alt');
+				}
+				if(e.shiftKey==1){
+					console.log('shift');
+				}
+				if(e.ctrlKey==1){
+					console.log('ctrl');
+				}
+			}
+			//press返回的是键值的字符代码
+			document.getElementById("kDown").onkeypress = function(e){
+				console.log('press ' + e.keyCode);		//有部分按键不会被press读取，例如esc,shift,ctrl等。
+				console.log('press code ' + e.charCode);	//charCode和keyCode在press的输出值是一样的，浏览器兼容不同而已
+				console.log('press key ' + e.key);
+			}
+			document.getElementById("kDown").onkeyup = function(e){
+				console.log('up ' + e.keyCode);
+			}
+			
+		</script>
+	</body>
+</html>

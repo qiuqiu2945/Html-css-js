@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>图片切换</title>
+		<link rel="stylesheet" type="text/css" href="css/0216-slides.css"/>
+		<script src="js/0216-slides.js"></script>
+	</head>
+	<body>
+		<div class="slides-container">
+			<div class="slides-show fade">
+			  <div class="slides-number">1 / 3</div>
+				<img src="img/KWONJIYONG-PHOTO-013.jpg" style="width: 1000px;" >
+				<div class="slides-text">KWON JI YONG 1</div>
+			</div>
+			<div class="slides-show fade">
+			  <div class="slides-number">2 / 3</div>
+				<img src="img/KWONJIYONG-PHOTO-014.jpg" style="width: 1000px;" >
+				<div class="slides-text">KWON JI YONG 2</div>
+			</div>
+			<div class="slides-show fade">
+			  <div class="slides-number">3 / 3</div>
+				<img src="img/KWONJIYONG-PHOTO-015.jpg" style="width: 1000px;" >
+				<div class="slides-text">KWON JI YONG 3</div>
+			</div>
+			<a class="prev" onclick="slidesChange(-1)"> < </a>
+			<a class="next" onclick="slidesChange(1)"> > </a>
+		</div>
+		<div id="pageChange">
+			<span onclick="currentSlides(1)" class="pageDot"></span>
+			<span onclick="currentSlides(2)" class="pageDot"></span>
+			<span onclick="currentSlides(3)" class="pageDot"></span>
+		</div>
+	</body>
+</html>

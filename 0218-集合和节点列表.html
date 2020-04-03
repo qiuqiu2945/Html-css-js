@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>collection and nodelist</title>
+	</head>
+	<body>
+		<div id="div1" class="myDemo">
+			<h1  class="myDemo">collection and nodelist</h1>
+			<p id="dd" name="pName"><span id="demo"  class="myDemo">
+				first paragraph
+			</span></p>
+			<p>second paragraph</p>
+			<p  class="myDemo">last paragraph</p>
+		</div>
+		<script type="text/javascript">
+			var collections = document.getElementsByTagName('p');	//collection
+			console.log(collections.namedItem('pName'));//'dd'
+			
+			var collec1 = document.getElementsByClassName('myDemo'); //collection
+			console.log(collec1.item(2));
+			
+			var collec2 = document.getElementById('div1').children;	//collection
+			console.log(collec2);
+			
+			var nodes1 = document.querySelectorAll('p');	//nodelist
+			console.log(nodes1);
+			
+			var nodes2 = document.getElementById('div1').childNodes;	//nodelist
+			console.log(nodes2);
+			
+		</script>
+	</body>
+</html>

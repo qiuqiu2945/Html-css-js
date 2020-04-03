@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>拖拽事件</title>
+		<style type="text/css">
+			#box1 { 
+				width: 30px;
+				height: 30px;
+				background-color: #000000;
+				position: absolute;
+				/* 拖拽需要开启绝对定位 */
+			}
+			#box2 { 
+				width: 30px;
+				height: 30px;
+				background-color: #eee;
+				position: absolute;
+				top: 200px;
+				left: 200px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var box1 = document.getElementById("box1");
+				var box2 = document.getElementById("box2");
+				drag(box1);
+				drag(box2);
+			};
+			// window load结束
+			/*
+			* 拖拽 函数
+			* obj : 开启拖拽事件的元素对象
+			*/
+			function drag(obj){
+				/* 拖拽事件 */
+				// 1.第一步为按下鼠标，不抬起。
+				obj.onmousedown = function(e){
+					//（IE8）用setCapture为box1强制捕获所有按下事件，然后再松开的时候取消强制捕获。
+					//setCapture只有IE支持，火狐不报错，chrome报错。
+				  obj.setCapture && obj.setCapture();
+					//求鼠标和元素的相对位置差值，鼠标点哪里就在哪里
+					e = e || window.event;
+					var offl = e.clientX - obj.offsetLeft;
+					var offt = e.clientY - obj.offsetTop;
+					//第二步为 对象跟随鼠标移动
+					document.onmousemove = function(e){
+						var e = e || window.event;
+						//获取鼠标的坐标
+						var left = e.clientX - offl;
+						var top = e.clientY - offt;	//减掉鼠标点击时相对元素的坐标位置。
+						//将鼠标的坐标值赋值给元素
+						obj.style.left = left + "px";
+						obj.style.top = top + "px";
+					};
+					//第二步结束
+					//第三步为 对象固定到鼠标松开的位置
+					//必须绑定给document，不然鼠标移动到box2上面时，up事件不会起作用。
+					document.onmouseup = function(){
+						//取消移动事件
+						document.onmousemove = null;
+						
+						//给document绑定up事件就需要取消up事件，不然监听所有的点击
+						document.onmouseup = null;
+						
+						//取消强制捕获事件
+						obj.releaseCapture && obj.releaseCapture();
+					};
+					//第三步结束
+					/*
+					* 浏览器默认提供选中文字移动自动搜索的行为。
+					* 但会使拖拽事件出错，拖拽也可能会搜索（按全选页面再拖拽时）
+					* 使用return false来取消这个默认行为（IE8不可以）。
+					* */
+					return false;
+				};
+				// 第一步结束
+			}
+		</script>
+	</head>
+	<body>
+		测试文字。
+		<div id="box1"></div>
+		<div id="box2"></div>
+	</body>
+</html>

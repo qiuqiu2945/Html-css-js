@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数据类型转换</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/*->string
+				1----------String(para)
+				2----------para.toString()
+			*/
+			//1-数值——>字符串，返回值都是 string 类型！
+			var n = 3.1415926;
+			console.log(String(n));	//3.1415926
+			console.log(n.toString());	//3.1415926
+			console.log(n.toFixed(3));	//3.142，规定小数位数
+			console.log(n.toExponential(2));	//3.14e+0，规定小数位数
+			console.log(n.toPrecision(5));	//3.1416，规定有效位数
+			//2-布尔值——>字符串
+			console.log(String(true));
+			console.log(false.toString());
+			//3-Date——>字符串
+			console.log(String(Date()));
+			console.log(Date().toString());
+			
+			/*->number
+				1------------Number()
+				2------------parseFloat()
+				3------------parseInt()
+				4------------ +
+			*/
+		   console.log(Number("3.1415926"));	//3.1415926
+		   console.log(Number(""));	//0
+		   console.log(Number("123 45"));	//NaN
+		   console.log(Number("123h"));	//NaN
+		   console.log(parseFloat("124ddd.333"));	//124
+		   console.log(parseInt("123 45"));	//123
+		   var x = "5";
+		   console.log(+x　+ typeof +x);　//5number
+		   x = "number";
+		   console.log(+x);	//NaN
+		   d = new Date();
+		   console.log(Number(d)) ;		//秒数
+		   console.log(d.getTime());	//效果同上
+		   
+		   /*自动类型转换
+				Note：只有+号是有特殊的连接符含义，其他的运算符都会自动将数字字符串转换为数字后与其他数字进行运算。
+		   */
+		   console.log(10+null);	//10
+		   console.log("10"+null);	//10null
+		   console.log("1" + 4 - 5);	//14-5 = 9
+		   console.log("10"-2 + 5);	//8+5 = 13
+		   console.log("10"*2);	//20
+		   
+		</script>
+	</body>
+</html>

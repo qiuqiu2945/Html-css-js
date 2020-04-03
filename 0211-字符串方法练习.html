@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>字符串方法练习</title>
+	</head>
+	<body>
+		
+		<script>
+			/*create string-----1*/
+			var str1 = "Sam Hammington";
+			console.log(typeof str1);	//string
+			
+			/*create string-----2, by new String("")*/
+			var str2 = new String("William Hanmmington");
+			console.log(typeof str2);	//object
+			
+			/*字符位置-------------charAt(index);*/
+			console.log(str1.charAt(5));	//a
+			
+			/*字符的unicode码------charCodeAt(index)*/
+			console.log(str1.charCodeAt(5));	//97
+			
+			/*将unicode码转换为字符------String.fromCharCode(unicode);*/
+			console.log(String.fromCharCode(98));	//b
+			console.log(typeof String.fromCharCode(98));	//返回string类型
+			
+			/*检索某字符首次出现的index-------indexOf("");*/
+			console.log(str1.indexOf("m"));		//2
+			
+			/*检索某字符最后一次出现的index------lastIndexOf("");*/
+			console.log(str1.lastIndexOf("m"));		//7
+			
+			/*查找一个或多个正则表达式匹配，返回值为匹配的字符串数组------------match(//g)*/
+			//--Note : 正则表达式后面有 g 时，才会匹配所有
+			//--没有 g 则只匹配一次。匹配失败返回null。
+			console.log(str1.match(/am/g));	//["am","am"]
+			console.log(str1.match(/am/));	//["am"]
+			
+			/*检索匹配值----------------search()，可以用字符串或正则表达式作为参数*/
+			//检索失败返回-1，否则返回查找到的首个匹配的索引值
+			console.log(str1.search(/ham/i));	//4
+			
+			/*是否以某字符串开头--------------startWith("")*/
+			//返回值为布尔值，true or false
+			console.log(str1.startsWith("Sam"));	//true
+			
+			/*替换匹配的字符串---------replace(//)，可以用字符串或正则表达式作为参数*/
+			//返回替换后的新字符串，g表示替换所有匹配的字符串，否则仅替换首个，原字符串的值不会改变
+			console.log(str1.replace(/am/ig,"un"));	//Sun Hunmington
+			console.log(str1);	//Sam Hammington
+			
+			/*分割字符串----------------split(''),参数为分割符号*/
+			console.log(str1.split(' '));	//以空格分隔，["Sam","Hammington"]
+			
+			/*提取子串*/
+			//----------1.slice(start,end)，参数为index，start为必需
+			console.log(str1.slice(2,9));	//m Hammi
+			//----------2.substr(start,num)，从start开始提取num个字符
+			console.log(str1.substr(5,5));	//ammin
+			//----------3.substring(start,end)
+			console.log(str1.substring(1,6));	//am Ha
+			
+			/*连接字符串------------------------str0.concat(str1,str2,....)*/
+			//将str0,str1,str2,....全都连接起来
+			console.log(str1.concat(" ", str2));	//Sam Hammington William Hammington
+			
+			/*重复字符串并连接-----------repeat(times)*/
+			console.log(str1.repeat(3));	//Sam HammingtonSam HammingtonSam Hammington
+			
+			/*大小写转换*/
+			//to大写
+			console.log(str1.toUpperCase());	//SAM HAMMINGTON
+			//to小写
+			console.log(str1.toLowerCase());	//sam hammington
+			
+			/*toString()*/
+			console.log(str1.toString());	//Sam Hammington
+			
+			/*去除字符串首尾空格*/
+			var str3 = "   little bently    ";
+			console.log(str3.trim());	//little bently
+			
+			/*字符串对象的原始值*/
+			console.log(str2.valueOf());	//William Hammington
+			
+		</script>
+	</body>
+</html>

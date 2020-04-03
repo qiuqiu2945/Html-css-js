@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.b1 {
+				width: 100px;
+				height: 100px;
+				background-color: red;
+			}
+			.b2 {
+				width: 200px;
+				height: 200px;
+				background-color: yellow;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var box = document.getElementById("box");
+				
+				var btn01 = document.getElementById("btn01");
+				
+				btn01.onclick = function(){
+					/* 改变box的样式。 
+					 * 如果用box.style.attr 来修改，每修改一个，浏览器就要重新渲染一次。不可取
+					 * 所以直接修改 box 的类。添加一个新的类 或者替换掉原来的类。一般采用添加类
+					*/
+					toggleClass(box, "b2");
+				};
+				
+				
+			};
+			/* 
+			 *用来添加新类的函数。 
+			 */
+			function addClass(obj, cn){
+				if(!hasClass(obj, cn)){/*先检查类是否存在*/
+					obj.className += " " + cn;
+				}
+			}
+			/* 
+			 * 判断元素中是否有指定的类
+			 * 如果有，返回true，否则返回false
+			 */
+			function hasClass(obj, cn){
+				var reg = new RegExp("\\b"+cn+"\\b");	/* /b 表示单词边界匹配*/
+				return reg.test(obj.className);
+			}
+			/*
+			 * 移除class
+			 */
+			function removeClass(obj, cn){
+				var reg = new RegExp("\\b"+cn+"\\b");
+				obj.className = obj.className.replace(reg, "");
+			}
+			/* toggleClass
+			 * 切换class
+			 * 如果元素中有该类就删除
+			 * 否则就添加
+			 */
+			function toggleClass(obj, cn){
+				if(hasClass(obj, cn)){
+					removeClass(obj, cn);
+				}else{
+					addClass(obj, cn);
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<button id="btn01">点击改变样式</button>
+		<div id="box" class="b1"></div>
+	</body>
+</html>

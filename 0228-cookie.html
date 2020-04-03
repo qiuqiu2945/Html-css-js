@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>hello cookie</title>
+	</head>
+	<body onload="checkCookie()">
+		<button type="button" onclick="deleteCookie()">删除cookie</button>
+		<script type="text/javascript">
+			//删除cookie
+			function deleteCookie(){
+				var d = new Date(0);
+				var expire = "expire=" + d.toGMTString();
+				document.cookie = "name=;" + expire;
+				alert("delete");
+			}
+			//存储cookie的函数
+			function storeCookie(cName){
+				var name = "name=" + cName;
+				var d = new Date();
+				d.setTime(d.getTime() + 30*24*60*60*1000);
+				var expire = "expire=" + d.toGMTString();
+				document.cookie = name + "; " + expire;
+				alert(name+";"+expire);
+			}
+			//获取cookie
+			function getCookie(){
+				let name = document.cookie.split(';');
+				return name[0];
+			}
+			//检查cookie
+			function checkCookie(){
+				var name = getCookie();
+				if(name!=""){
+					alert('welcome back ' + name);
+				}else{
+					name = prompt("input name");
+					if(name!="" && name!=undefined){
+						storeCookie(name);
+						alert("welcome " + name);
+					}
+				}
+			}
+			/*
+			function setCookie(cname,cvalue,exdays){
+				var d = new Date();
+				d.setTime(d.getTime()+(exdays*24*60*60*1000));
+				var expires = "expires="+d.toGMTString();
+				document.cookie = cname+"="+cvalue+"; "+expires;
+			}
+			function getCookie(cname){
+				var name = cname + "=";
+				var ca = document.cookie.split(';');
+				for(var i=0; i<ca.length; i++) {
+					var c = ca[i].trim();
+					if (c.indexOf(name)==0) { return c.substring(name.length,c.length); }
+				}
+				return "";
+			}
+			function checkCookie(){
+				var user=getCookie("username");
+				if (user!=""){
+					alert("欢迎 " + user + " 再次访问");
+				}
+				else {
+					user = prompt("请输入你的名字:","");
+			  		if (user!="" && user!=null){
+			    		setCookie("username",user,30);
+			    	}
+				}
+			}*/
+		</script>
+	</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script>
+			/*将数组 arr 中的元素作为调用函数 fn 的参数*/
+			argsAsArray(function (greeting, name, punctuation) {return greeting + ', ' + name + (punctuation || '!');}, 
+			['Hello', 'Ellie', '!']);
+			function argsAsArray(fn, arr) {
+				var myObject = fn.apply(myObject, arr);
+				return myObject;
+			}
+			/*将函数 fn 的执行上下文改为 obj 对象*/
+			speak(function () {
+				return this.greeting + ', ' + this.name + '!!!';}, 
+				{greeting: 'Hello', name: 'Rebecca'});
+				
+			function speak(fn, obj) {
+				return fn.apply(obj);
+			}
+			
+			/*实现函数 functionFunction，调用之后满足如下条件：
+			1、返回值为一个函数 f
+			2、调用返回的函数 f，返回值为按照调用顺序的参数拼接，拼接字符为英文逗号加一个空格，即 ', '
+			3、所有函数的参数数量为 1，且均为 String 类型*/
+			functionFunction('Hello')('world');
+			function functionFunction(str) {
+				return function(s){ return str + ', ' + s;};//闭包
+			}
+			/*使用闭包
+			实现函数 makeClosures，调用之后满足如下条件：
+			1、返回一个函数数组 result，长度与 arr 相同
+			2、运行 result 中第 i 个函数，即 result[i]()，结果与 fn(arr[i]) 相同*/
+			makeClosures([1, 2, 3], function (x) { 
+				return x * x; 
+			});
+			function makeClosures(arr, fn) {
+				var result = new Array();//用[]反馈超出数组边界
+				//result[0] = fn;
+				/*for(let i=0; i<arr.length; i++){		//作用域问题，不能用var
+					result.push(function () {
+						return fn(arr[i]);
+					});
+				}*/
+				/*for(var i=0;i<arr.length;i++){
+				  result[i] = function(num){
+				      return function(){
+				          return fn(num);
+				           
+				      }
+				  }(arr[i]);
+				}*/
+				arr.forEach(function(item){
+					result.push(function(){
+						return fn(item);
+					});
+				});
+				console.log(result[2]());
+				return result;
+			}
+			/*二次封装函数
+			已知函数 fn 执行需要 3 个参数。请实现函数 partial，调用之后满足如下条件：
+			1、返回一个函数 result，该函数接受一个参数
+			2、执行 result(str3) ，返回的结果与 fn(str1, str2, str3) 一致*/
+			var sayIt = function(greeting, name, punctuation) {
+				return greeting + ', ' + name + (punctuation || '!'); 
+			};  
+			partial(sayIt, 'Hello', 'Ellie')('!!!');
+			function partial(fn, str1, str2) {
+				return function(str){
+					return fn(str1, str2, str);
+				};
+			}
+			/*arguments
+			函数 useArguments 可以接收 1 个及以上的参数。*****arguments*****隐形传参数
+			请实现函数 useArguments，返回所有调用参数相加后的结果。
+			本题的测试参数全部为 Number 类型，不需考虑参数转换。*/
+			useArguments(1,2,3,4,5);
+			function useArguments() {
+				var sum = 0;
+				for(item in arguments){
+					sum += arguments[item];
+				}
+				return sum;
+			}
+			/*apply调用函数
+			实现函数 callIt，调用之后满足如下条件
+			1、返回的结果为调用 fn 之后的结果
+			2、fn 的调用参数为 callIt 的第一个参数之后的全部参数*/
+			callIt(function(a,b){ return a*b; }, 2, 5);
+			function callIt(fn) {
+			    var args = Array.prototype.slice.call(arguments, 1);//Array原型链的slice方法
+					return fn.apply(this, args);
+					//return fn.apply(this, [].slice.call(arguments,1));
+					//调用[]实例的slice函数对象的call方法，传参为arguments对象和1
+					//[]会在array原型链上找到slice方法
+			}
+			/*二次调用函数
+			实现函数 partialUsingArguments，调用之后满足如下条件：
+			1、返回一个函数 result
+			2、调用 result 之后，返回的结果与调用函数 fn 的结果一致
+			3、fn 的调用参数为 partialUsingArguments 的第一个参数之后的全部参数以及 result 的调用参数*/
+			
+			function partialUsingArguments(fn) {
+				var pArgs = Array.prototype.slice.call(arguments, 1);
+				var result = function(){
+					var rArgs = Array.prototype.slice.call(arguments);
+					return fn.apply(this, pArgs.concat(rArgs));
+				}
+				return result;
+			}
+			
+			/*柯里化
+			已知 fn 为一个预定义函数，实现函数 curryIt，调用之后满足如下条件：
+			1、返回一个函数 a，a 的 length 属性值为 1（即显式声明 a 接收一个参数）
+			2、调用 a 之后，返回一个函数 b, b 的 length 属性值为 1
+			3、调用 b 之后，返回一个函数 c, c 的 length 属性值为 1
+			4、调用 c 之后，返回的结果与调用 fn 的返回值一致
+			5、fn 的参数依次为函数 a, b, c 的调用参数*/
+			/*function curryIt(fn) {
+				return a = function(x){
+					return b = function(y){
+						return c = function(z){
+							return fn(x,y,z);
+						};
+					};
+				};
+			}*/
+			function curryIt(fn) {
+				let args = [];
+				return function cur(arg){
+					args.push(arg);
+					if(fn.length<=args.length){
+						return fn.apply(this, args);
+					}else{
+						return function(arg2){
+							return cur.call(this, arg2);
+						};
+					}
+				};
+			}
+			
+			/*模块
+			完成函数 createModule，调用之后满足如下要求：
+			1、返回一个对象
+			2、对象的 greeting 属性值等于 str1， name 属性值等于 str2
+			3、对象存在一个 sayIt 方法，该方法返回的字符串为 greeting属性值 + ', ' + name属性值
+			*/
+			function createModule(str1, str2) {
+				var obj = {
+					greeting: str1,
+					name: str2,
+					sayIt: function(){ return this.greeting + ', ' + this.name}
+				};
+				return obj;
+			}
+			/*二进制转换
+			获取数字 num 二进制形式第 bit 位的值。注意：
+			1、bit 从 1 开始
+			2、返回 0 或 1
+			3、举例：2 的二进制为 10，第 1 位为 0，第 2 位为 1*/
+			valueAtBit(128,8);
+			function valueAtBit(num, bit) {
+				var str = num.toString(2);
+				console.log(str);
+				console.log(str[str.length-bit]);
+				return str[str.length-bit];
+			}
+			/*二进制转换
+			给定二进制字符串，将其换算成对应的十进制数字*/
+			function base10(str) {
+				return parseInt(str, 2);
+			}
+			/*二进制转换
+			将给定数字转换成二进制字符串。如果字符串长度不足 8 位，则在前面补 0 到满8位。*/
+			convertToBinary(37);
+			function convertToBinary(num) {
+				var str = num.toString(2);
+				/*console.log(str);
+				while(str.length<8){
+					str = '0'+str;
+				}
+				console.log(str);*/
+				var str1 = '00000000';
+				if(str.length<8){
+					var str2 = str1.slice(0, 8-str.length);
+					str = str2 + str;
+				}
+				return str;
+			}
+			/*乘法,注意精度*/
+			function multiply(a, b) {
+				var s1 = (a.toString().split('.')[1] || '').length;
+				var s2 = (b.toString().split('.')[1] || '').length;
+				var len = s1 + s2;
+				return (a*b).toFixed(len);
+			}
+			
+			/*改变上下文
+			将函数 fn 的执行上下文改为 obj，返回 fn 执行后的值*/
+			alterContext(function() {return this.greeting + ', ' + this.name + '!'; }, 
+			{name: 'Rebecca', greeting: 'Yo' })
+			function alterContext(fn, obj) {
+				return fn.apply(obj);
+			}
+			
+			/*批量改变对象属性
+			给定一个构造函数 constructor，请完成 alterObjects 方法，
+			将 constructor 的所有实例的 greeting 属性指向给定的 greeting 变量。*/
+			var C = function(name) {this.name = name; return this;}; 
+			var obj1 = new C('Rebecca'); 
+			alterObjects(C, 'What\'s up'); 
+			obj1.greeting;
+			function alterObjects(constructor, greeting) {
+				constructor.prototype.greeting = greeting;
+			}
+			
+			/*属性遍历
+			找出对象 obj 不在原型链上的属性(注意这题测试例子的冒号后面也有一个空格~)
+			1、返回数组，格式为 key: value
+			2、结果数组不要求顺序*/
+			var C = function() {this.foo = 'bar'; this.baz = 'bim';}; 
+			C.prototype.bop = 'bip'; 
+			iterate(new C());
+			function iterate(obj) {
+				var arr = [];
+				for(var k in obj){
+					if(obj.hasOwnProperty(k)){
+						arr.push(k + ": " + obj[k]);
+					}
+				}
+				return arr;
+			}
+			/*判断是否包含数字
+			给定字符串 str，检查其是否包含数字，包含返回 true，否则返回 false*/
+			function containsNumber(str) {
+				var pat = /\d+/;
+				return pat.test(str);
+			}
+			/*检查重复字符串
+			给定字符串 str，检查其是否包含连续重复的字母（a-zA-Z），包含返回 true，否则返回 false*/
+			function containsRepeatingLetter(str) {
+				
+				return /([a-zA-Z])\1/.test(str);
+			}
+			/*判断是否以元音字母结尾
+			给定字符串 str，检查其是否以元音字母结尾
+			1、元音字母包括 a，e，i，o，u，以及对应的大写
+			2、包含返回 true，否则返回 false
+			*/
+			function endsWithVowel(str) {
+				return /[aeiou]$/i.test(str);
+			}
+			/*获取指定字符串
+			给定字符串 str，检查其是否包含 连续3个数字 
+			1、如果包含，返回最新出现的 3 个数字的字符串
+			2、如果不包含，返回 false*/
+			captureThreeNumbers('98eeeee');
+			function captureThreeNumbers(str) {
+				return str.match(/\d{3}/)==null?false : str.match(/\d{3}/);
+			}
+			/*检查格式
+			给定字符串 str，检查其是否符合如下格式
+			1、XXX-XXX-XXXX
+			2、其中 X 为 Number 类型*/
+			function matchesPattern(str) {
+				var pat = /^(\d{3}-){2}\d{4}$/;
+				return pat.test(str);
+			}
+			/*
+			给定字符串 str，检查其是否符合美元书写格式
+			1、以 $ 开始
+			2、整数部分，从个位起，满 3 个数字用 , 分隔
+			3、如果为小数，则小数部分长度为 2
+			4、正确的格式如：$1,023,032.03 或者 $2.03，错误的格式如：$3,432,12.12 或者 $34,344.3*/
+			function isUSD(str) {
+				var pat = /^\$(\d{1,3})(,\d{3})*(\.\d{2})?$/;
+				return pat.test(str);
+			}
+		</script>
+	</body>
+</html>

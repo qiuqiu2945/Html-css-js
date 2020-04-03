@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>计时器</title>
+	</head>
+	<body>
+		<p>计数<span id="cnt"></span></p>
+		<button type="button" onclick="clearTimeout(timeOut)">结束计数</button>
+		<button type="button" onclick="alertInf()">点击3秒后弹窗</button>
+		<p>当前时间:<span id="ds"></span></p>
+		<button type="button" onclick="clearInterval(interval)">结束时间</button>
+		<script>
+			/*计时器*/
+			count(1,1000);
+			var timeOut;//必须是全局变量
+			function count(start, end) {
+				var s = document.getElementById("cnt");
+				  if(start<end)
+					{
+						s.innerHTML = start;
+					  timeOut = setTimeout(function(){count(++start, end)}, 500);
+					}
+					return{
+						cancel: function(){
+							clearTimeout(timeOut);
+						}
+					};
+			}
+			
+			function alertInf(){
+				setTimeout(function(){alert("hello window");}, 3000);
+			}
+			
+			/*动态显示时间*/
+			curTime();
+			function curTime(){
+				interval = setInterval(function(){
+					var dSpan = document.getElementById('ds');
+				  var d = new Date();
+					dSpan.innerHTML = d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate() 
+					+ " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+				}, 1000); 
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>

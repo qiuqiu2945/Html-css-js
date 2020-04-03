@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//测试环境    Chrome浏览器
+			var str = "ABCDE";
+			var reg = /(A+)((B|C|D)+)(E+)/gi;
+			str.match(reg);//输出：["ABCDE"]
+			reg.exec(str,'i');//输出：["ABCDE", "A", "BCD", "D", "E"]
+			console.log(RegExp.$1);//输出："A"
+			console.log(RegExp.$2);//输出："BCD"
+			console.log(RegExp.$3);//输出："D"
+			console.log(RegExp.$4);//输出："E"
+		</script>
+	</body>
+</html>

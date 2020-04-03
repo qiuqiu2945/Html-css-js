@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>this关键字</title>
+	</head>
+	<body>
+		<p id="demo0"></p>
+		<!--1. 事件中this，点击事件，this指向button-->
+		<button type="button" onclick="this.style.backgroundColor = 'red'">点我</button>
+		
+		<p id="wd"></p>
+		<p id="call_ap"></p>
+		<script type="text/javascript">
+			var person = {
+				firstName:"Sam",
+				lastName:"Hammington",
+				getName: function(){	return this.firstName+" " +this.lastName; },	//2. this指向person对象
+				func: function(){ return this;	}		//3. 返回指代的方法所属对象
+			}
+			var person0 = {
+				firstName:"William",
+				lastName:"Hammington",
+			}
+			document.getElementById("demo0").innerHTML = person.getName() + " " + person.func();	//Sam Hammington [object Object]
+			
+			//4. 单独使用，this默认指代window对象
+			document.getElementById("wd").innerHTML = this;	//[object Window]
+			
+			//5. 使用了person的方法，但是用call使得this指向的是person0
+			document.getElementById("call_ap").innerHTML = person.getName.call(person0);	//William Hammington
+			
+		</script>
+	</body>
+</html>
